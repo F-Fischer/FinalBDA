@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title>BDA Final Login</title>
+		
+		<meta name="generator" content="Bootply" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		
+		
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/styles.css" rel="stylesheet">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		
+		<script type="text/javascript">
+		
+		$(document).ready(function(){
+			$("#formulario").submit(function(e){
+				$.ajax({
+					url : "login",
+					data : { nick : $("#txtNick").val(), password : $("#txtPassword").val()},
+					success : function (d){
+						if (d.status==0){
+							
+							url = window.location.protocol+"//"+window.location.host+"/Usuarios-Login"+d.resultado.url+"?nick="+$("#txtNick").val;
+							window.location=url;
+						} else {
+							$("#errMsg").html	(d.msg);
+							$("#error").show();
+						}
+					}
+				});
+				return false;
+			});	
+		});
+		
+		</script>
+		
+	</head>
+	<body>
+<!--login modal-->
+<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+  
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h1 class="text-center">Login</h1>
+      </div>
+      <div class="modal-body">
+          <form class="form col-md-12 center-block" id="formulario">
+            <div class="form-group">
+              <input id="txtNick" type="text" class="form-control input-lg" placeholder="Nick">
+            </div>
+            <div class="form-group">
+              <input id="txtPassword" type="password" class="form-control input-lg" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <button id="btnClick" class="btn btn-primary btn-lg btn-block">Log In</button>
+              
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+          	
+      </div>
+  </div>
+  </div>
+</div>
+	<!-- script references -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+	</body>
+</html>
