@@ -117,6 +117,17 @@ public final class Util {
 
 	}
 	
+	public static JSONObject armarResultadoRs(JSONArray dato) {
+		JSONObject r = new JSONObject();
+		try {
+			r.put("resultado", dato);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		return r;
+	}
+	
 	public static JSONObject armarResultado(int status, String mensaje, JSONObject dato) {
 		JSONObject r = new JSONObject();
 		try {

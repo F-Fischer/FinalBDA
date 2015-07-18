@@ -16,7 +16,7 @@ public class TestUsuarioDAOGuardar {
 		UsuarioDAO uDAO = new UsuarioDAO(Conexion.getConnection());	
 		Usuario u = new Usuario();
 		
-		int year = 2013;
+		int year = 2007;
 	    int month = 12;
 	    int day = 12;
 
@@ -32,11 +32,11 @@ public class TestUsuarioDAOGuardar {
 	      e.printStackTrace();
 	    }
 		
-		u.setApellido("apellido 2");
-		u.setNombre("nombre 2");
+		u.setApellido("Expirada 3");
+		u.setNombre("Contra");
 		u.setMail("mail2@mail.com");
-		u.setNick("nick2");
-		u.setPassword("password2");
+		u.setNick("rut");
+		u.setPassword("rut");
 		u.setExpira(utilDate);
 		
 		uDAO.guardar(u);

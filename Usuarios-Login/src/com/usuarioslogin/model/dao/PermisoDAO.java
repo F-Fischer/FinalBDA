@@ -127,4 +127,17 @@ public class PermisoDAO {
 		}
 		return resultado;
 	}
+	
+	public ResultSet todoToRs() throws SQLException {
+		ResultSet resultado = null;
+		try {
+			PreparedStatement pst = c
+					.prepareStatement("SELECT * FROM permiso");
+			resultado = pst.executeQuery();
+		} catch (Exception e) {
+			throw new SQLException(e);
+		}
+		return resultado;
+	}
+	
 }

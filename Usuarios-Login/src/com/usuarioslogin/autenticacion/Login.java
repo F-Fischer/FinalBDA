@@ -1,6 +1,9 @@
 package com.usuarioslogin.autenticacion;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,19 +53,24 @@ public class Login extends HttpServlet {
 				}
 				else
 				{
-					/*Calendar cal = Calendar.getInstance();
+					Calendar cal = Calendar.getInstance();
 					cal.setTimeZone(TimeZone.getTimeZone("GMT"));
-					String fecha = Util.getDate(cal);
-					String fechaUsuario = Util.getDate(u.getExpira());
 					
+					Date fechaActual = cal.getTime();
+					Date fechaUsuario = u.getExpira();
 					
-					if(fecha.compareTo(u.getExpira()) > 0)
-					{
+					if(fechaActual.compareTo(fechaUsuario)==1){
+						System.out.println("CONTRASEÑA expirada");
+						msg = "Contraseña expirada";
+						resultado.put("url", "/fexpirada.html");
+					} else {
+						System.out.println("NO expirada");
+						String url = "/index.html";
+						resultado.put("url", url);
 						
-					}*/
-					String url = "/index.html";
-					resultado.put("url", url);
-					
+						HttpSession s = request.getSession(true);
+						s.setAttribute(Constantes.USUARIO, u);
+					}
 					HttpSession s = request.getSession(true);
 					s.setAttribute(Constantes.USUARIO, u);
 				}
