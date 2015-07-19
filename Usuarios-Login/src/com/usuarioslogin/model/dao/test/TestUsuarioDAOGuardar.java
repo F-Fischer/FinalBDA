@@ -35,8 +35,8 @@ public class TestUsuarioDAOGuardar {
 		u.setApellido("Expirada 3");
 		u.setNombre("Contra");
 		u.setMail("mail2@mail.com");
-		u.setNick("rut");
-		u.setPassword("rut");
+		u.setNick("g");
+		u.setPassword("g");
 		u.setExpira(utilDate);
 		
 		uDAO.guardar(u);

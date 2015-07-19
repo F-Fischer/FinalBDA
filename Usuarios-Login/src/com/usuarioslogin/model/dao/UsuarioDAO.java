@@ -225,5 +225,17 @@ public class UsuarioDAO {
 		}
 		return resultado;
 	}
+	
+	public ResultSet todoToRs() throws SQLException {
+		ResultSet resultado = null;
+		try {
+			PreparedStatement pst = c
+					.prepareStatement("SELECT * FROM usuario");
+			resultado = pst.executeQuery();
+		} catch (Exception e) {
+			throw new SQLException(e);
+		}
+		return resultado;
+	}
 
 }
