@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.usuarioslogin.model.Grupo;
 import com.usuarioslogin.model.Permiso;
+import com.usuarioslogin.model.Usuario;
 
 public class GrupoDAO {
 
@@ -24,8 +25,7 @@ public class GrupoDAO {
 
 		try {
 			c.setAutoCommit(false);
-			PreparedStatement pst = c
-					.prepareStatement("INSERT INTO grupo (nombre, descripcion) VALUES (?,?)");
+			PreparedStatement pst = c.prepareStatement("INSERT INTO grupo (nombre, descripcion) VALUES (?,?)");
 			pst.setString(1, grupo.getNombre());
 			pst.setString(2, grupo.getDescripcion());
 			pst.executeUpdate();
@@ -53,8 +53,7 @@ public class GrupoDAO {
 		boolean resultado = false;
 		try {
 			c.setAutoCommit(false);
-			PreparedStatement pst = c
-					.prepareStatement("UPDATE  grupo SET nombre=?, descripcion=? WHERE idGrupo=?");
+			PreparedStatement pst = c.prepareStatement("UPDATE  grupo SET nombre=?, descripcion=? WHERE idGrupo=?");
 			pst.setString(1, grupo.getNombre());
 			pst.setString(2, grupo.getDescripcion());
 			pst.setInt(3, grupo.getIdGrupo());
@@ -86,8 +85,7 @@ public class GrupoDAO {
 		boolean resultado = false;
 		try {
 			c.setAutoCommit(false);
-			PreparedStatement pst = c
-					.prepareStatement("DELETE FROM grupo WHERE idGrupo=?");
+			PreparedStatement pst = c.prepareStatement("DELETE FROM grupo WHERE idGrupo=?");
 			pst.setInt(1, grupo.getIdGrupo());
 			pst.executeUpdate();
 			c.commit();
@@ -104,13 +102,11 @@ public class GrupoDAO {
 	public Grupo cargar(int idGrupo) throws SQLException {
 		Grupo resultado = null;
 		try {
-			PreparedStatement pst = c
-					.prepareStatement("SELECT * FROM grupo WHERE idGrupo=?");
+			PreparedStatement pst = c.prepareStatement("SELECT * FROM grupo WHERE idGrupo=?");
 			pst.setInt(1, idGrupo);
 			ResultSet rs = pst.executeQuery();
 			if (rs.next()) {
-				resultado = new Grupo(rs.getInt("idGrupo"),
-						rs.getString("nombre"), rs.getString("descripcion"),
+				resultado = new Grupo(rs.getInt("idGrupo"), rs.getString("nombre"), rs.getString("descripcion"),
 						listarPermisos(rs.getInt("idGrupo")));
 			}
 		} catch (Exception e) {
@@ -129,8 +125,7 @@ public class GrupoDAO {
 			ResultSet rs = pst.executeQuery();
 
 			while (rs.next()) {
-				resultado.add(new Grupo(rs.getInt("idGrupo"),
-						rs.getString("nombre"), rs.getString("descripcion"),
+				resultado.add(new Grupo(rs.getInt("idGrupo"), rs.getString("nombre"), rs.getString("descripcion"),
 						listarPermisos(rs.getInt("idGrupo"))));
 			}
 
@@ -147,17 +142,14 @@ public class GrupoDAO {
 		List<Permiso> resultado = new ArrayList<Permiso>();
 
 		try {
-			PreparedStatement pst = c
-					.prepareStatement("SELECT p.idPermiso,p.nombre,p.descripcion "
-							+ "FROM grupo_x_permiso as gxp, permiso as p "
-							+ "WHERE p.idPermiso=gxp.idPermiso "
-							+ "AND gxp.idGrupo = ?");
+			PreparedStatement pst = c.prepareStatement(
+					"SELECT p.idPermiso,p.nombre,p.descripcion " + "FROM grupo_x_permiso as gxp, permiso as p "
+							+ "WHERE p.idPermiso=gxp.idPermiso " + "AND gxp.idGrupo = ?");
 
 			pst.setInt(1, idGrupo);
 			ResultSet rs = pst.executeQuery();
 			while (rs.next()) {
-				resultado.add(new Permiso(rs.getInt("idPermiso"), rs
-						.getString("nombre"), rs.getString("descripcion")));
+				resultado.add(new Permiso(rs.getInt("idPermiso"), rs.getString("nombre"), rs.getString("descripcion")));
 			}
 
 		} catch (Exception e) {
@@ -166,15 +158,99 @@ public class GrupoDAO {
 
 		return resultado;
 	}
-	
+
 	public ResultSet todoToRs() throws SQLException {
 		ResultSet resultado = null;
 		try {
-			PreparedStatement pst = c
-					.prepareStatement("SELECT * FROM grupo");
+			PreparedStatement pst = c.prepareStatement("SELECT * FROM grupo");
 			resultado = pst.executeQuery();
 		} catch (Exception e) {
 			throw new SQLException(e);
+		}
+		return resultado;
+	}
+
+	public boolean tienePermisosAsociados(int idGrupo) {
+		boolean resultado = false;
+
+		try {
+			PreparedStatement pst = c.prepareStatement("SELECT * FROM grupo_x_permiso WHERE idGrupo=?");
+			pst.setInt(1, idGrupo);
+
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				resultado = true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+
+	public boolean tieneUsuariosAsociados(int idGrupo) {
+		
+		boolean resultado = false;
+
+		try {
+			PreparedStatement pst = c.prepareStatement("SELECT * FROM grupo_x_usuario WHERE idGrupo=?");
+			pst.setInt(1, idGrupo);
+
+			ResultSet rs = pst.executeQuery();
+			if (rs.next()) {
+				resultado = true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+	public boolean agregarUsuario(Usuario usuario, Grupo grupo) throws SQLException {
+		if (usuario.getIdUsuario() == -1 || grupo.getIdGrupo() == -1)
+			return false;
+
+		boolean resultado = false;
+		try {
+			c.setAutoCommit(false);
+			PreparedStatement pst = c
+					.prepareStatement("INSERT INTO grupo_x_usuario (idGrupo, idUsuario) VALUES(?,?)");
+			
+			pst.setInt(1, grupo.getIdGrupo());
+			pst.setInt(2, usuario.getIdUsuario());
+			pst.executeUpdate();
+			c.commit();
+			resultado = true;
+		} catch (Exception e) {
+			c.rollback();
+			throw new SQLException(e);
+		} finally {
+			c.setAutoCommit(true);
+		}
+		return resultado;
+	}
+	
+	public boolean agregarPermiso(Grupo grupo, Permiso permiso) throws SQLException {
+		if (permiso.getIdPermiso() == -1 || grupo.getIdGrupo() == -1)
+			return false;
+
+		boolean resultado = false;
+		try {
+			c.setAutoCommit(false);
+			PreparedStatement pst = c
+					.prepareStatement("INSERT INTO grupo_x_permiso (idPermiso,idGrupo) VALUES(?,?)");
+			
+			pst.setInt(1, permiso.getIdPermiso());
+			pst.setInt(2, grupo.getIdGrupo());
+			
+			pst.executeUpdate();
+			c.commit();
+			resultado = true;
+		} catch (Exception e) {
+			c.rollback();
+			throw new SQLException(e);
+		} finally {
+			c.setAutoCommit(true);
 		}
 		return resultado;
 	}

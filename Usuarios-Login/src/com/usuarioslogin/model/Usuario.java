@@ -143,5 +143,14 @@ public class Usuario {
 		
 		return j.toString();
 	}
+	
+	public boolean tienePermiso(Permiso permiso){
+		boolean resultado = false;
+		
+		if(permisos.contains(permiso))
+			resultado = true;
+		
+		return resultado;
+	}
 
 }

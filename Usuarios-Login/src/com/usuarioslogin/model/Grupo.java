@@ -88,7 +88,7 @@ public class Grupo {
 	
 	}
 	
-	public boolean tienePermiso(Permiso permiso){
+	public boolean tienePermiso(Permiso permiso){		
 		return permisos.contains(permiso);
 	}
 
