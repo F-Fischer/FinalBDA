@@ -203,6 +203,8 @@ public class UsuarioDAO {
 		}
 		return resultado;
 	}
+	
+	
 
 	public List<Permiso> listarPermisosDirectos(int idUsuario)
 			throws SQLException {
@@ -222,6 +224,29 @@ public class UsuarioDAO {
 		} catch (Exception e) {
 
 			throw new SQLException(e);
+		}
+		return resultado;
+	}
+	
+	public boolean agregarPermiso(Usuario usuario,Permiso permiso) throws SQLException {
+		if (usuario.getIdUsuario() == -1 || permiso.getIdPermiso() == -1)
+			return false;
+
+		boolean resultado = false;
+		try {
+			c.setAutoCommit(false);
+			PreparedStatement pst = c.
+					prepareStatement("INSERT INTO usuario_x_permiso (idUsuario,idPermiso) VALUES(?,?)");
+			pst.setInt(1, usuario.getIdUsuario());
+			pst.setInt(2, permiso.getIdPermiso());
+			pst.executeUpdate();
+			c.commit();			
+			resultado = true;
+		} catch (Exception e) {
+			c.rollback();
+			throw new SQLException(e);
+		} finally {
+			c.setAutoCommit(true);
 		}
 		return resultado;
 	}

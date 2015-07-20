@@ -140,4 +140,64 @@ public class PermisoDAO {
 		return resultado;
 	}
 	
+	public boolean tieneUsuariosAsociados (int idPermiso){
+		
+		boolean resultado = false;
+		
+		try{
+			PreparedStatement pst = c.prepareStatement("SELECT * FROM usuario_x_permiso WHERE idPermiso=?");
+			pst.setInt(1, idPermiso);
+			
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				resultado = true;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
+	public boolean tieneGruposAsociados (int idPermiso){
+		
+		boolean resultado = false;
+		
+		try{
+			PreparedStatement pst = c.prepareStatement("SELECT * FROM grupo_x_permiso WHERE idPermiso=?");
+			pst.setInt(1, idPermiso);
+			
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()){
+				resultado = true;
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return resultado;
+	}
+	
+	public List<Permiso> listarPermisosDirectos(int idUsuario)
+			throws SQLException {
+		List<Permiso> resultado = new ArrayList<Permiso>();
+		try {
+			PreparedStatement pst = c
+					.prepareStatement("SELECT p.idPermiso,p.nombre,p.descripcion"
+							+ " FROM usuario_x_permiso as uxp, permiso as p"
+							+ " WHERE p.idPermiso=uxp.idPermiso"
+							+ " AND uxp.idUsuario=?");
+			pst.setInt(1, idUsuario);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				resultado.add(new Permiso(rs.getInt("idPermiso"), rs
+						.getString("nombre"), rs.getString("descripcion")));
+			}
+		} catch (Exception e) {
+
+			throw new SQLException(e);
+		}
+		return resultado;
+	}
+	
 }

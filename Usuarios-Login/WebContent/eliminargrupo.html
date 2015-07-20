@@ -37,19 +37,13 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <script type="text/javascript">
-	$(document)
-			.ready(
+	$(document).ready(
 					function() {
-
-						$
-								.ajax({
+						$.ajax({
 									url : "verGrupos",
 									success : function(d) {
 										var contenido = '';
-										$
-												.each(
-														d.resultado,
-														function(key, value) {
+										$.each(d.resultado,function(key, value) {
 															contenido = contenido
 																	+ "<option value=\"" + value.idGrupo + "\">"
 																	+ value.nombre
@@ -58,40 +52,24 @@
 										$('#selectGrupo').html(contenido);
 									}
 								});
-						$('#eliminar')
-								.click(
+						$('#eliminar').click(
 										function() {
-											$
-													.ajax({
+											$.ajax({
 														url : "eliminarGrupo",
-														data : {
-															grupo : $(
-																	"#selectGrupo option:selected")
-																	.val()
+														data : { grupo : $( "#selectGrupo option:selected").val()
 														},
 														success : function(d) {
-
-															$
-																	.ajax({
+															$.ajax({
 																		url : "verGrupos",
-																		success : function(
-																				d) {
+																		success : function(d) {
 																			var contenido = '';
-																			$
-																					.each(
-																							d.resultado,
-																							function(
-																									key,
-																									value) {
+																			$.each(d.resultado,function(key,value) {
 																								contenido = contenido
 																										+ "<option value=\"" + value.idGrupo + "\">"
 																										+ value.nombre
 																										+ "</option>";
 																							})
-																			$(
-																					'#selectGrupo')
-																					.html(
-																							contenido);
+																			$('#selectGrupo').html(contenido);
 																		}
 																	});
 
