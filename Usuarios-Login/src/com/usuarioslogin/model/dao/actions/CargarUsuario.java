@@ -42,12 +42,6 @@ public class CargarUsuario extends HttpServlet {
 		Date nuevaFecha = cal.getTime();
 		
 		Usuario usuario = new Usuario();
-		System.out.println(apellido);
-		System.out.println(nombre);
-		System.out.println(mail);
-		System.out.println(nick);
-		System.out.println(password);
-		System.out.println("ESTE ES EL MAIL "+nombre);
 		usuario.setNombre(nombre);
 		usuario.setApellido(apellido);
 		usuario.setNick(nick);

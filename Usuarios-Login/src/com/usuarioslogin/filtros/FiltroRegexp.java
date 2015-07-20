@@ -61,12 +61,11 @@ public class FiltroRegexp implements Filter {
 		}
 
 		if (puedeAcceder) {
-			res.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
+			//res.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
 			chain.doFilter(request, response);
 			return;
 		}
 		res.sendRedirect("login.html");
-
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {

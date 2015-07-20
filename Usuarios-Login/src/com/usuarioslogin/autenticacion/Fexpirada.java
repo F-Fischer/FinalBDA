@@ -31,7 +31,6 @@ public class Fexpirada extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("En fexpirada");
 		String nick = request.getParameter("nick");
 		String oldPassword = request.getParameter("oldPassword");
 		String password = request.getParameter("password");
@@ -50,7 +49,6 @@ public class Fexpirada extends HttpServlet {
 		Usuario u;
 
 		try {
-			System.out.println("En el try");
 			u = uDAO.cargar(nick);
 			JSONObject resultado = new JSONObject();
 			Calendar cal = Calendar.getInstance();
@@ -85,6 +83,7 @@ public class Fexpirada extends HttpServlet {
 				e.printStackTrace();
 			}
 
+			System.out.println("Todo con exito, armando resultado");
 			JSONObject respuesta = Util.armarResultado(status, msg, resultado);
 			response.setContentType("application/json");
 			response.getWriter().print(respuesta.toString());
@@ -93,7 +92,6 @@ public class Fexpirada extends HttpServlet {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 }

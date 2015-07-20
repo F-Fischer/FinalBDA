@@ -42,7 +42,6 @@ UsuarioDAO uDAO = new UsuarioDAO(Conexion.getConnection());
 				JSONObject respuesta = Util.armarResultadoRs(resultado);
 				response.setContentType("application/json");
 				response.getWriter().print(respuesta.toString());
-				System.out.println(respuesta);
 				
 			} catch (JSONException e) {
 				e.printStackTrace();

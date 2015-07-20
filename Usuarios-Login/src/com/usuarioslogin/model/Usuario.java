@@ -132,7 +132,6 @@ public class Usuario {
 			j.put("apellido",getApellido());
 			
 			String expira = new SimpleDateFormat("yyyy-MM-dd").format(getExpira());
-			System.out.println(expira);
 			j.put("expira",expira);
 			
 			j.put("permisos",getPermisos());

@@ -60,19 +60,17 @@ public class Login extends HttpServlet {
 					Date fechaUsuario = u.getExpira();
 					
 					if(fechaActual.compareTo(fechaUsuario)==1){
-						System.out.println("CONTRASEÑA expirada");
+						
 						msg = "Contraseña expirada";
 						resultado.put("url", "/fexpirada.html");
 					} else {
-						System.out.println("NO expirada");
+						
 						String url = "/index.html";
 						resultado.put("url", url);
 						
 						HttpSession s = request.getSession(true);
 						s.setAttribute(Constantes.USUARIO, u);
 					}
-					HttpSession s = request.getSession(true);
-					s.setAttribute(Constantes.USUARIO, u);
 				}
 				
 				

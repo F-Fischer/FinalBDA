@@ -45,7 +45,7 @@ public class FiltroAutenticacion implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 
 		boolean acceso = acceso(req.getRequestURI());
-		//LOG.debug("URI: {}, acceso: {}", req.getRequestURI(), acceso);
+		
 
 		if (acceso) {
 			chain.doFilter(request, response);

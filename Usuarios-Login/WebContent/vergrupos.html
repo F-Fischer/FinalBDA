@@ -3,229 +3,205 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <title>Admin - Base de datos aplicadas</title>
+<title>Admin - Base de datos aplicadas</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Core CSS -->
+<link href="bower_components/bootstrap/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href="bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+<!-- MetisMenu CSS -->
+<link href="bower_components/metisMenu/dist/metisMenu.min.css"
+	rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="dist/css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<!-- Custom Fonts -->
+<link href="bower_components/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		
-		<script type="text/javascript">	
-		
-		$(document).ready(function(){
-	  		$.ajax({ 
-	    		url : "verGrupos",
-	    		success: function(d) {
-	    			var contenido = '';
-	    			$.each(d.resultado, function(key, value){
-	    				
-	    				contenido = contenido + "<tr><td>" + value.idGrupo + "</td><td>" + value.nombre + "</td><td>" + value.descripcion + "</td></tr>"
-	    				
-	    			})
-	    			$('#tablaAjax').html(contenido);
-	 
-				}});
-	  		
-	  		$('#salir').click(function() {
-	  	    	$.ajax({ 
-	  	    		url : "logout",
-	  	    		success: function(d) {
-	  	    			window.location.href = "login.html";
-	  				}});
-	  	    });
-	  	});
-		</script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$.ajax({
+					url : "verGrupos",
+					success : function(d) {
+						var contenido = '';
+						$.each(d.resultado, function(key, value) {
+
+							contenido = contenido + "<tr><td>" + value.idGrupo
+									+ "</td><td>" + value.nombre + "</td><td>"
+									+ value.descripcion + "</td></tr>"
+
+						})
+						$('#tablaAjax').html(contenido);
+
+					}
+				});
+
+				$('#logout').click(function() {
+					$.ajax({
+						url : "logout",
+						success : function(d) {
+							window.location.href = "login.html";
+						}
+					});
+				});
+			});
+</script>
 
 </head>
 
 <body>
 
-    <div id="wrapper">
+	<div id="wrapper">
 
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">Administrador Web</a>
-            </div>
-            <!-- /.navbar-header -->
-            <ul class="nav navbar-top-links navbar-right">
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                        </li>
-                        <li class="divider"></li>
-                     
-                        <li><a href="#" id="logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
+		<!-- Navigation -->
+		<nav class="navbar navbar-default navbar-static-top" role="navigation"
+			style="margin-bottom: 0">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html">Administrador Web</a>
+			</div>
+			<!-- /.navbar-header -->
+			<ul class="nav navbar-top-links navbar-right">
+				<!-- /.dropdown -->
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
+						<i class="fa fa-caret-down"></i>
+				</a>
+					<ul class="dropdown-menu dropdown-user">
+						<li><a href="#"><i class="fa fa-user fa-fw"></i> User
+								Profile</a></li>
+						<li class="divider"></li>
 
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> General</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-circle-o"></i> Permisos<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="verpermisos.html">Ver Permisos</a>
-                                </li>
-                                <li>
-                                    <a href="cargarpermiso.html">Cargar Permisos</a>
-                                </li>
-                                <li>
-                                    <a href="#">Modificar Permisos</a>
-                                </li>
-                                <li>
-                                    <a href="#">Eliminar Permisos</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li class="active">
-                            <a href="#"><i class="fa fa-circle-o"></i> Usuarios<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="verusuarios.html">Ver Usuarios</a>
-                                </li>
-                                <li>
-                                    <a href="cargarusuario.html">Cargar Usuarios</a>
-                                </li>
-                                <li>
-                                    <a href="#">Modificar Usuarios</a>
-                                </li>
-                                <li>
-                                    <a href="#">Eliminar Usuarios</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li class="active">
-                            <a href="#"><i class="fa fa-circle-o"></i> Grupos<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="vergrupos.hmtl">Ver Grupos</a>
-                                </li>
-                                <li>
-                                    <a href="cargargrupo.html">Cargar Grupos</a>
-                                </li>
-                                <li>
-                                    <a href="#">Modificar Grupos</a>
-                                </li>
-                                <li>
-                                    <a href="#">Eliminar Grupos</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
+						<li><a  id="logout"><i
+								class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+					</ul> <!-- /.dropdown-user --></li>
+				<!-- /.dropdown -->
+			</ul>
+			<!-- /.navbar-top-links -->
 
-        <!-- Page Content -->
-        <div id="page-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">Grupos</h1>
-                    </div>
-                    <!-- /.col-lg-12 -->
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container-fluid -->
-            
-            <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Todos los grupos
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>idGrupo</th>
-                                            <th>Nombre</th>
-                                            <th>Descripcion</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tablaAjax">
-                                    
-                                    
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
-            
-        </div>
-        <!-- /#page-wrapper -->
-        
-        <div class="row">
-                <!--/col-->        
-                </div>
-                <!--/col-span-6-->
+			<div class="navbar-default sidebar" role="navigation">
+				<div class="sidebar-nav navbar-collapse">
+					<ul class="nav" id="side-menu">
+						<li><a href="index.html"><i class="fa fa-dashboard fa-fw"></i>
+								General</a></li>
+						<li><a href="#"><i class="fa fa-circle-o"></i> Permisos<span
+								class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li><a href="verpermisos.html">Ver Permisos</a></li>
+								<li><a href="cargarpermiso.html">Cargar Permisos</a></li>
+								<li><a href="modificarpermiso.html">Modificar Permisos</a>
+								</li>
+								<li><a href="eliminarpermiso.html">Eliminar Permisos</a></li>
+							</ul> <!-- /.nav-second-level --></li>
+						<li><a href="#"><i class="fa fa-circle-o"></i> Usuarios<span
+								class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li><a href="verusuarios.html">Ver Usuarios</a></li>
+								<li><a href="cargarusuario.html">Cargar Usuarios</a></li>
+								<li><a href="modificarusuario.html">Modificar Usuarios</a>
+								</li>
+								<li><a href="eliminarusuario.html">Eliminar Usuarios</a></li>
+							</ul> <!-- /.nav-second-level --></li>
+						<li><a href="#"><i class="fa fa-circle-o"></i> Grupos<span
+								class="fa arrow"></span></a>
+							<ul class="nav nav-second-level">
+								<li><a href="vergrupos.html">Ver Grupos</a></li>
+								<li><a href="cargargrupo.html">Cargar Grupos</a></li>
+								<li><a href="modificargrupo.html">Modificar Grupos</a></li>
+								<li><a href="eliminargrupo.html">Eliminar Grupos</a></li>
+							</ul> <!-- /.nav-second-level --></li>
+					</ul>
+				</div>
+				<!-- /.sidebar-collapse -->
+			</div>
+			<!-- /.navbar-static-side -->
+		</nav>
 
-            </div>
+		<!-- Page Content -->
+		<div id="page-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1 class="page-header">Grupos</h1>
+					</div>
+					<!-- /.col-lg-12 -->
+				</div>
+				<!-- /.row -->
+			</div>
+			<!-- /.container-fluid -->
 
-    </div>
-    <!-- /#wrapper -->
+			<div class="panel panel-default">
+				<div class="panel-heading">Todos los grupos</div>
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>idGrupo</th>
+									<th>Nombre</th>
+									<th>Descripcion</th>
+								</tr>
+							</thead>
+							<tbody id="tablaAjax">
 
-    <!-- jQuery -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+							</tbody>
+						</table>
+					</div>
+					<!-- /.table-responsive -->
+				</div>
+				<!-- /.panel-body -->
+			</div>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
+		</div>
+		<!-- /#page-wrapper -->
 
-    <!-- Custom Theme JavaScript -->
-    <script src="dist/js/sb-admin-2.js"></script>
+		<div class="row">
+			<!--/col-->
+		</div>
+		<!--/col-span-6-->
+
+	</div>
+
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- jQuery -->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+	<!-- Bootstrap Core JavaScript -->
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<!-- Metis Menu Plugin JavaScript -->
+	<script src="bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+	<!-- Custom Theme JavaScript -->
+	<script src="dist/js/sb-admin-2.js"></script>
 
 </body>
 

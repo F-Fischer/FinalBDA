@@ -63,15 +63,15 @@ public class UsuarioDAO {
 		try {
 			c.setAutoCommit(false);
 			PreparedStatement pst = c
-					.prepareStatement("UPDATE usuario SET apellido=?,nombre=?,mail=?,nick=?,password=?,expira=?"
+					.prepareStatement("UPDATE usuario SET apellido=?,nombre=?,mail=?,nick=?,password=?"
 							+ " WHERE idUsuario=?");
 			pst.setString(1, usuario.getApellido());
 			pst.setString(2, usuario.getNombre());
 			pst.setString(3, usuario.getMail());
 			pst.setString(4, usuario.getNick());
 			pst.setString(5, usuario.getPassword());
-			pst.setDate(6, new java.sql.Date(usuario.getExpira().getTime()));
-			pst.setInt(7, usuario.getIdUsuario());
+			//pst.setDate(6, new java.sql.Date(usuario.getExpira().getTime()));
+			pst.setInt(6, usuario.getIdUsuario());
 			pst.executeUpdate();
 			c.commit();
 			resultado = true;

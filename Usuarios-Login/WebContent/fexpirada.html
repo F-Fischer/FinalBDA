@@ -39,10 +39,8 @@
                     data : { nick : $("#txtNick").val(), oldPassword : $("#txtOld").val(), password : $("#txtPassword").val(), passwordRepetida : $("#txtPasswordRepetida").val()},
                     success: function(d) {
         				if (d.status==0) {
-        					window.location.href = "/index.html"
-        				} else {
-        					$("#errMsg").html(d.msg);
-        					$("#error").show();
+        					url = window.location.protocol+"//"+window.location.host+"/Usuarios-Login"+d.resultado.url;
+                            window.location=url;
         				}
         			}
                 });

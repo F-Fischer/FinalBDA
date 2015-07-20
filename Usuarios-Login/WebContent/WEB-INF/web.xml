@@ -2,6 +2,6 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee" version="2.5">
   <context-param>
     <param-name>filterRegex</param-name>
-    <param-value>^/js/.*,^/bower_components/.*,^/dist/.*,^/login.html$,^/login$,^/gettranslation$</param-value>
+    <param-value>^/js/.*,^/bower_components/.*,^/dist/.*,^/login.html$,^/login$,^/gettranslation$,^/fexpirada.html$,^/fexpirada$</param-value>
   </context-param>
 </web-app>

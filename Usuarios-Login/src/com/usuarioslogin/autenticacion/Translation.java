@@ -28,7 +28,6 @@ public class Translation extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
-				System.out.println("Lo que me haga feliz");
 				JSONObject respuesta = new JSONObject();
 				System.out.println(request.getParameterValues("requested[]"));
 				String requested[]=request.getParameterValues("requested[]");
