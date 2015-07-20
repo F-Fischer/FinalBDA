@@ -1,6 +1,7 @@
 package com.usuarioslogin.filtros;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -17,63 +18,56 @@ import javax.servlet.http.HttpSession;
 import com.usuarioslogin.general.Constantes;
 import com.usuarioslogin.model.Usuario;
 
-@WebFilter("/*")
-public class FiltroAutenticacion implements Filter {
 
-	
-	private String[] 
-			rnp = "/gettranslation,/login,/login.html,/bower_components/jquery/dist/jquery.min.js,/bower_components/bootstrap/dist/js/bootstrap.min.js,/bower_components/metisMenu/dist/metisMenu.min.js,dist/js/sb-admin-2.js,/bower_components/bootstrap/dist/css/bootstrap.min.css,/bower_components/metisMenu/dist/metisMenu.min.css,/dist/css/sb-admin-2.css,/bower_components/font-awesome/css/font-awesome.min.css".
-			toLowerCase().split(",");
-	
-    public FiltroAutenticacion() {
+@WebFilter("/*")
+public class FiltroRegexp implements Filter {
+
+    public FiltroRegexp() {
     }
 
 	public void destroy() {
-
 	}
-	
-	private boolean autenticacionHabilitada = false;
 
+	private boolean autenticacionHabilitada = true;
+	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
+
 		if (!autenticacionHabilitada) {
 			chain.doFilter(request, response);
 			return;
 		}
-
+		
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 
-		boolean acceso = acceso(req.getRequestURI());
-		//LOG.debug("URI: {}, acceso: {}", req.getRequestURI(), acceso);
-
-		if (acceso) {
-			chain.doFilter(request, response);
-			return;
-		}
 
 		HttpSession s = req.getSession(false);
 
-		if (s != null
-				&& s.getAttribute(Constantes.USUARIO) instanceof Usuario) {
+		boolean puedeAcceder = s != null
+				&& s.getAttribute(Constantes.USUARIO) != null
+				&& s.getAttribute(Constantes.USUARIO) instanceof Usuario;
+
+		ServletContext cont=req.getServletContext();
+		
+		String regs=cont.getInitParameter("filterRegex");
+		String regexps[]=regs.toLowerCase().split(",");
+		
+		String localUri=req.getRequestURI().replaceAll("^/.*?/", "/");
+		for (String regexp : regexps) {
+			if (Pattern.matches(regexp, localUri)){
+				puedeAcceder = true;
+			}
+			
+		}
+
+		if (puedeAcceder) {
+			res.setHeader("Cache-Control", "private, no-store, no-cache, must-revalidate");
 			chain.doFilter(request, response);
 			return;
 		}
+		res.sendRedirect("login.html");
 
-		res.sendRedirect(req.getServletContext().getContextPath()
-				+ "/login.html");
 	}
-	
-	private boolean acceso(String uri) {
-		for (String s : rnp) {
-			if (uri.toLowerCase().endsWith(s))
-
-				return true;
-		}
-		return false;
-	}
-
-	
 
 	public void init(FilterConfig fConfig) throws ServletException {
 	}
